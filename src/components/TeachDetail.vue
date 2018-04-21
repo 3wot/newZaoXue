@@ -24,7 +24,7 @@
                           text-align: center;
                           margin-top: 5px;" class="mintui mintui-back"></span>
                   </router-link>
-                  <img src="../assets/star.png" style="margin:10px;float:right;width:25px;height:25px;">
+                  <img src="../../static/star.png" style="margin:10px;float:right;width:25px;height:25px;">
                 </div>
               </div>
 

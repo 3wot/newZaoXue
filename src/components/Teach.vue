@@ -25,17 +25,17 @@
   			<mt-swipe :auto="0">
   		  <mt-swipe-item>
   		  	<router-link to="/TeachDetail/001">
-  		  		<img src="../assets/teach004.png">
+  		  		<img src="../../static/teach004.png">
   		  	</router-link>
   		  </mt-swipe-item>
   		  <mt-swipe-item>
           <router-link to="/TeachDetail/002">
-  		  	<img src="../assets/teach005.png">
+  		  	<img src="../../static/teach005.png">
         </router-link>
   		  </mt-swipe-item>
   		  <mt-swipe-item>
           <router-link to="/TeachDetail/003">
-  		  	<img src="../assets/teach006.png">
+  		  	<img src="../../static/teach006.png">
         </router-link>
   		  </mt-swipe-item>
   		</mt-swipe>
@@ -47,7 +47,7 @@
 		<div class="panel">
 			<router-link to="/teachtype/practice">
 				<div class="panel-in">
-			  		<img src="../assets/teach001.png">
+			  		<img src="../../static/teach001.png">
 			  		<div class="font-middle">
 			  			<h3 class="font-white text-center">社会实践</h3>
 			  		</div>
@@ -60,7 +60,7 @@
       <div class="panel">
       	<router-link to="/teachtype/science">
           <div class="panel-in">
-            <img src="../assets/teach002.png">
+            <img src="../../static/teach002.png">
             <div class="font-middle">
               <h3 class="font-white text-center">社会科学</h3>
             </div>
@@ -73,7 +73,7 @@
       <div class="panel">
       	<router-link to="/teachtype/culture">
           <div class="panel-in">
-            <img src="../assets/teach003.png">
+            <img src="../../static/teach003.png">
             <div class="font-middle">
               <h3 class="font-white text-center">文化遗产</h3>
             </div>

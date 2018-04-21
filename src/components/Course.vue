@@ -217,7 +217,7 @@ export default {
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  line-height: 1.4rem;
+  line-height: 1.1rem;
   font-size: .8rem;
   margin-bottom: 5px;
 }
@@ -228,7 +228,9 @@ export default {
   padding: 2px;
 }
 .panel .panel-in .panel-right .price{
-  margin-top: .7rem;
+  margin-top: 5px;
+  font-size: 0.8rem;
+
 }
 .panel-right .price-span{
   color: red;

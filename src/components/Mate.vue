@@ -8,9 +8,9 @@
   <div class="content-in">
       <div class="panel">
           <div class="panel-in">
-            <img src="../assets/bg.png">
+            <img src="../../static/bg.png">
             
-            <img class="img-f-70 mate-img" src="../assets/p001.png">
+            <img class="img-f-70 mate-img" src="../../static/p001.png">
             
           </div>
       </div>
@@ -66,7 +66,7 @@ export default {
           content:'愿生命如烟花一般，刹那芳华，风采绽放！',
           time:"2018-02-01 12:06:20",
           commentList:{
-            '阿达':false,
+            '阿达':true,
             '鱼王':true,
           }
         },

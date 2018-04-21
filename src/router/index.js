@@ -20,6 +20,11 @@ export default new Router({
       component: Index
     },
     {
+      path: '/index/:type',
+      name: 'index',
+      component: Index
+    },
+    {
       path: '/teachtype/:type',
       name: 'teachtype',
       component: TeachType

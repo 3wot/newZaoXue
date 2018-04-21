@@ -3,9 +3,9 @@
 
     <div class="panel">
         <div class="panel-in">
-          <img src="../assets/bg.png">
+          <img src="../../static/bg.png">
           <div class="font-middle">
-            <img class="img-r-70" src="../assets/p001.png">
+            <img class="img-r-70" src="../../static/p001.png">
             <!-- <h2 class="font-white">登录</h2> -->
           </div>
         </div>
@@ -15,7 +15,7 @@
       
         <mt-cell title="我的收藏" is-link to="/MyCollection">
           <!-- <span></span> -->
-          <img slot="icon" src="../assets/logo.png" width="24" height="24">
+          <img slot="icon" src="../../static/logo.png" width="24" height="24">
         </mt-cell>
 
     </div>

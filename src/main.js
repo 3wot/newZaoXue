@@ -17,6 +17,11 @@ Vue.use(MintUI)
 Vue.prototype.userInfo = {
 	name:'夏天',
 	uid:"xiatian",
+  phone:'',
+  set(data) {
+    this.name = data.name;
+    this.phone = data.phone;
+  }
 }
 
 Vue.config.productionTip = false

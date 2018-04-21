@@ -12,13 +12,12 @@
 
       <div class="pic-date">
         <span class="font-8e font-b">{{pic.time}}</span>
-        <img src="../assets/ok.png" @click="zan(pic)" class="pic-zan pull-right">
+        <img src="../../static/ok.png" @click="zan(pic)" class="pic-zan pull-right">
       </div>
 
       <div class="pic-comment-list">
-        <img src="../assets/ok.png" class="pic-zan">
-        <span class="font-8e pic-name" v-for="(val,key,index) in pic.commentList" v-show="val" :key="index">{{key}}
-          {{index==Object.keys(pic.commentList).length-1?"":","}}
+        <img src="../../static/ok.png" class="pic-zan">
+        <span class="font-8e pic-name" v-for="(val,key,index) in pic.commentList" v-if="val" :key="index">{{index==0?""+key:","+key}}
         </span>
         <!-- <span>{{pic.commentList}}</span> -->
       </div>

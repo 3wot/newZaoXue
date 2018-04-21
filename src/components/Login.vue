@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img class="bg" src="../assets/login.jpg">
+    <img class="bg" src="../../static/login.jpg">
 
     <div class="content-in">
       
@@ -11,7 +11,7 @@
             <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
             
 <!--             <mt-field label="图片验证" placeholder="请输入图片码" v-model="captcha">
-                <img src="../assets/login001.png" height="27px" width="90px">
+                <img src="../../static/login001.png" height="27px" width="90px">
             </mt-field>
 
             <mt-field label="验证码" placeholder="请输入验证码" type="password" v-model="password">
@@ -37,6 +37,7 @@ import { Field } from 'mint-ui'
 import Router from 'vue-router'
 import URLS from '../router/link'
 import $ from 'jquery'
+import { Toast } from 'mint-ui'
 
 export default {
   components:{
@@ -55,14 +56,7 @@ export default {
     }
   },
   mounted() {
-    // let that = this;
-    // this.getToken(function(res){
-    //   if(res.flag){
-    //     that.token = res.data.token;
-    //   }else{
-    //     console.log("get token failed")
-    //   }
-    // })
+
 
   },
   methods:{
@@ -97,12 +91,24 @@ export default {
           }
           const url = URLS.getURL('RegUser');
           $.post(url,data,function(cres){
-            console.log(cres,'aaaaaaaa');
             if(cres.flag){//注册成功
 
-            }else{//注册失败
-              
+              //获取用户信息
+              const getUserInfo = URLS.getURL('getUserInfo');
+              $.get(getUserInfo, function(ccres){
+                if(ccres.flag){
+                  that.$router.go(-1);//哪里来的，跳回去
+                }else{
+                  Toast({
+                    message: 'ccres.mes',
+                    position: 'bottom',
+                    duration: 5000
+                  });
+                }
 
+              })
+            }else{//注册失败
+              console.log('RegUser failed')
             }
           })
 
