@@ -1,0 +1,306 @@
+{
+	"variables": [],
+	"info": {
+		"name": "xcweb",
+		"_postman_id": "8b7106ad-b725-f5c7-242a-6e0c9ab96656",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "获取活动类别",
+			"request": {
+				"url": {
+					"raw": "http://admin.dev.com//api/activity/getActivityType.json?debug=dd",
+					"protocol": "http",
+					"host": [
+						"admin",
+						"dev",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"activity",
+						"getActivityType.json"
+					],
+					"query": [
+						{
+							"key": "debug",
+							"value": "dd",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "获取用户信息",
+			"request": {
+				"url": {
+					"raw": "http://admin.dev.com//api/user/getUserInfo.json?debug=dd",
+					"protocol": "http",
+					"host": [
+						"admin",
+						"dev",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"user",
+						"getUserInfo.json"
+					],
+					"query": [
+						{
+							"key": "debug",
+							"value": "dd",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "获取token",
+			"request": {
+				"url": {
+					"raw": "http://admin.dev.com//api/user/getToken.json?debug=dd",
+					"protocol": "http",
+					"host": [
+						"admin",
+						"dev",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"user",
+						"getToken.json"
+					],
+					"query": [
+						{
+							"key": "debug",
+							"value": "dd",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "获取token-线上",
+			"request": {
+				"url": {
+					"raw": "http://www.xbcweb.com//api/user/getToken.json?debug=dd",
+					"protocol": "http",
+					"host": [
+						"www",
+						"xbcweb",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"user",
+						"getToken.json"
+					],
+					"query": [
+						{
+							"key": "debug",
+							"value": "dd",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "6",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "注册用户-线上",
+			"request": {
+				"url": {
+					"raw": "http://www.xbcweb.com//api/user/RegUser.json?debug=dd",
+					"protocol": "http",
+					"host": [
+						"www",
+						"xbcweb",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"user",
+						"RegUser.json"
+					],
+					"query": [
+						{
+							"key": "debug",
+							"value": "dd",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "11",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "13366663333",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "获取活动详情",
+			"request": {
+				"url": {
+					"raw": "http://admin.dev.com/api/activity/getActivityInfo.json?debug=dd",
+					"protocol": "http",
+					"host": [
+						"admin",
+						"dev",
+						"com"
+					],
+					"path": [
+						"api",
+						"activity",
+						"getActivityInfo.json"
+					],
+					"query": [
+						{
+							"key": "debug",
+							"value": "dd",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "6",
+							"description": "活动id",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "获取活动列表",
+			"request": {
+				"url": {
+					"raw": "http://admin.dev.com//api/activity/getActivityList.json?debug=dd&p=1&type_id=2",
+					"protocol": "http",
+					"host": [
+						"admin",
+						"dev",
+						"com"
+					],
+					"path": [
+						"",
+						"api",
+						"activity",
+						"getActivityList.json"
+					],
+					"query": [
+						{
+							"key": "debug",
+							"value": "dd",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "p",
+							"value": "1",
+							"equals": true,
+							"description": "当前页"
+						},
+						{
+							"key": "type_id",
+							"value": "2",
+							"equals": true,
+							"description": "分类id"
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "type_id",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

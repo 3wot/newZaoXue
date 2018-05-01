@@ -25,7 +25,7 @@ export default new Router({
       component: Index
     },
     {
-      path: '/teachtype/:type',
+      path: '/teachtype/:id',
       name: 'teachtype',
       component: TeachType
     },

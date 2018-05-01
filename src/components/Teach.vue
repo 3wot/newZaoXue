@@ -43,7 +43,20 @@
   	</div>
 
 
-	<div class="m-sm radius">
+    <div v-for="item in teachArr" :key="item.index" class="m-sm radius">
+      <div class="panel">
+        <router-link :to="{ name: 'teachtype', params: { id: item.id }}">
+          <div class="panel-in">
+            <img :src="item.type_pic">
+            <div class="font-middle">
+              <h3 class="font-white text-center">{{item.type_name}}</h3>
+            </div>
+          </div>
+        </router-link>
+      </div>  
+    </div>
+
+<!-- 	<div class="m-sm radius">
 		<div class="panel">
 			<router-link to="/teachtype/practice">
 				<div class="panel-in">
@@ -80,7 +93,9 @@
           </div>
         </router-link>
       </div>  
-    </div>
+    </div> -->
+
+
 
 	 
    </div>
@@ -101,6 +116,8 @@ import { Tabbar, TabItem } from 'mint-ui'
 import { Swipe, SwipeItem } from 'mint-ui'
 import { Cell } from 'mint-ui'
 import { Search } from 'mint-ui'
+import URLS from '../router/link'
+import $ from 'jquery'
 
 
 // Vue.component(Tabbar.name, Tabbar);
@@ -114,11 +131,28 @@ export default {
   data () {
     return {
       searchText:"",
+      teachArr: [],
     }
   },
+  mounted() {
+    const that = this
+    this.getActivityType(function(d){
+      if(d.flag){
+        that.teachArr = d.data
+      }else{
+        console.log('获取活动列表失败')
+      }        
+    })
+  },
   methods:{
-    clickHandle(){
+    clickHandle() {
       this.$router.push({name:'search'});
+    },
+    getActivityType(callback) {
+      const getActivityType = URLS.getURL('getActivityType');
+      $.get(getActivityType,function(data){
+        callback(data);
+      })
     }
   }
 }

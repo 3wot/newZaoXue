@@ -2,8 +2,8 @@ const URLS = {
 	"getToken": "/api/user/getToken.json",
 	"getUserInfo": "/api/user/getUserInfo.json",
 	"RegUser": "/api/user/RegUser.json",
-
-
+	"getActivityType": "/api/activity/getActivityType.json",
+	"getActivityList": "/api/activity/getActivityList.json",
 
 
 	"getURL": function(key){

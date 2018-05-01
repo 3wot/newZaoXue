@@ -33,12 +33,36 @@
 
 <script>
 import { Header } from 'mint-ui'
+import URLS from '../router/link'
+import $ from 'jquery'
 
 export default {
   components:{
     Header
   },
   name: 'TeachType',
+  mounted() {
+    console.log(this.$route)
+    const id = this.$route.params.id;
+    if(id){
+      this.getActivityList(id, function(d){
+        console.log(d,'aaaaaaaaaaaa')
+      })
+    }
+    
+  },
+  methods:{
+    getActivityList(id,callback) {
+      const getActivityList = URLS.getURL('getActivityList');
+      const param = {
+        p: 1,
+        type_id: id
+      };
+      $.get(getActivityList, param, function(data){
+        callback(data);
+      })
+    }
+  },
   data () {
     return {
       typeObj:{
