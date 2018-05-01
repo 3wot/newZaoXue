@@ -13,6 +13,7 @@
 	  	
 	  	<div class="m-sm radius" v-for="item in teachCourseList">
 			<div class="panel">
+        
 				<router-link :to="{ name: 'teachdetail', params: { id: item.id }}">
 					<div class="panel-in">
 				  		<img :src="item.logo_pic">
@@ -21,7 +22,7 @@
 				  		</div>
 				  	</div>
 				</router-link>
-		  	</div>	
+	  	</div>	
 		</div>
 		
 	  </div>
