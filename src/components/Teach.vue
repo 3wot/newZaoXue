@@ -45,7 +45,7 @@
 
     <div v-for="item in teachArr" :key="item.index" class="m-sm radius">
       <div class="panel">
-        <router-link :to="{ name: 'teachtype', params: { id: item.id }}">
+        <router-link :to="{ name: 'teachtype', params: { id: item.id,typeName: item.type_name }}">
           <div class="panel-in">
             <img :src="item.type_pic">
             <div class="font-middle">

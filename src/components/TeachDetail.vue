@@ -100,6 +100,11 @@ export default {
     Cell,Navbar, TabItem
   },
   name: 'TeachDetail',
+  mounted() {
+    console.log(this.$route)
+    
+    
+  },
   data () {
     return {
       teachCourseList:[

@@ -4,7 +4,8 @@ const URLS = {
 	"RegUser": "/api/user/RegUser.json",
 	"getActivityType": "/api/activity/getActivityType.json",
 	"getActivityList": "/api/activity/getActivityList.json",
-
+	"getActivityInfo": "/api/activity/getActivityInfo.json",
+	
 
 	"getURL": function(key){
 		const host = 'http://www.xbcweb.com//';

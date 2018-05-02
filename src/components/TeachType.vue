@@ -2,7 +2,7 @@
 <template>
   <div class="teach-type">
       <!-- 顶部 -->
-	  <mt-header fixed :title="typeObj[$route.params.type]">
+	  <mt-header fixed :title="$route.params.typeName">
 	  	  <router-link to="/" slot="left">
 		    <mt-button icon="back"></mt-button>
 		  </router-link>
