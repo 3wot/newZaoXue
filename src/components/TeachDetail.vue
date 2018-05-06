@@ -2,7 +2,7 @@
 
   <div class="teach-detail">
   
-  <div v-for="item in teachCourseList" :key="item.index" v-if="$route.params.id==item.id">
+  <!-- <div v-for="item in teachCourseList" :key="item.index" v-if="$route.params.id==item.id"> -->
     
     <div class="panel">
 
@@ -85,7 +85,7 @@
 
 
 
-  </div>  
+  <!-- </div>   -->
     
   </div>
 </template>
@@ -94,6 +94,8 @@
 import { Cell } from 'mint-ui'
 import { Navbar, TabItem } from 'mint-ui'
 import { TabContainer, TabContainerItem } from 'mint-ui'
+import URLS from '../router/link'
+import $ from 'jquery'
 
 export default {
   comments:{
@@ -101,9 +103,41 @@ export default {
   },
   name: 'TeachDetail',
   mounted() {
-    console.log(this.$route)
     
+    const that = this;
+    const id = this.$route.params.id;
+    if(id){
+      this.getActivityInfo(id, function(d){
+        if(d.flag){   
+          const rData = d.data
+          that.item = {
+            id: rData.id,
+            title: rData.title,
+            img: rData.logo_pic,
+            type: rData.type_id,
+            price: rData.price,
+            for: rData.obj_info,
+            introduce: rData.more.a_info,
+            provider: rData.server_info.name,
+            address: rData.address,
+            tip: rData.more.a_tips,
+            comments: ''
+          }
+        }
+      })
+    }
     
+  },
+  methods:{
+    getActivityInfo(id,callback) {
+      const getActivityInfo = URLS.getURL('getActivityInfo');
+      const param = {
+        id: id
+      };
+      $.post(getActivityInfo, param, function(data){
+        callback(data);
+      })
+    }
   },
   data () {
     return {
@@ -120,7 +154,6 @@ export default {
           address:"地址：北京市中国国家博物馆",
           tip:"\n1.5元钱生存资金\n2.一个便携式背包\n3.一个收纳袋子\n4.一瓶矿泉水",
           comments:[]
-
       	},
       	{
           id:'002',
@@ -175,6 +208,7 @@ export default {
           comments:[]
       	}
       ],
+      item:{},
       selected:'1',
     }
   }

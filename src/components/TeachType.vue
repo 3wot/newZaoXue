@@ -43,7 +43,6 @@ export default {
   },
   name: 'TeachType',
   mounted() {
-    console.log(this.$route)
     const that = this;
     const id = this.$route.params.id;
     if(id){
