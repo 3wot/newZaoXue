@@ -139,7 +139,6 @@ export default {
       })
     },
     goBack() {
-      console.log('ddddddddd')
       this.$router.go(-1)
     }
   },
