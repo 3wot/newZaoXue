@@ -31,7 +31,7 @@
           </div>
 
           <div class="panel-in" v-if="showVideo">
-            <video id="myVideo" :src="videoSrc" controls="controls"> 
+            <video id="myVideo" :src="videoSrc" autoplay> 
               
             </video>
 
@@ -108,7 +108,7 @@ export default {
             {
               title:'摄影那些事',
               progress:100,
-              link:'./static/course.mp4'
+              link:'./static/movie.ogg'
             },
             {
               title:'产品&摄影',
