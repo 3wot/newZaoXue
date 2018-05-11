@@ -37,11 +37,10 @@
         <div class="detail-content">
           <h4>
             <span>适合群体：</span>
-            <span>{{item.for}}</span>
+            <span>{{item.for?item.for:""}}</span>
           </h4>
-          <div class="detail-introduce font-8e">
-          {{item.introduce}}
-          
+          <div class="detail-introduce font-8e" v-html="item.introduce">
+          <!-- {{item.introduce}} -->
           </div>
 
           <div class="m-t-1e"></div>
@@ -50,12 +49,12 @@
 
         <div class="cell-8e">
           <mt-cell :title="item.provider">
-            
+            <div slot="title" class="address-title">{{'服务商：'+ (item.provider?item.provider:'')}}</div>
           </mt-cell>
         
           <!-- <mt-cell title="地址：北京市" to="/MapDetail/北京市海淀区清华大学" is-link value="详情"> -->
-            <mt-cell :title="item.address" :to="{ name: 'mapdetail', params: { address: item.address }}" is-link value="详情">
-            
+          <mt-cell :to="{ name: 'mapdetail', params: { address: item.address }}" is-link value="详情">
+            <div slot="title" class="address-title">{{'地址：'+item.address}}</div>
           </mt-cell>
 
         </div>
@@ -68,16 +67,14 @@
         
         <mt-tab-container v-model="selected">
           <mt-tab-container-item id="1" style="padding:1rem;">
-            <!-- <mt-cell v-for="n in 10" :title="'内容 ' + n" /> -->
+            <div v-html="item.comments">
+            </div>            
 
           </mt-tab-container-item>
           <mt-tab-container-item id="2" style="padding:1rem;">
-            <pre>
-              {{item.tip}}
 
-            </pre>
-              
-
+            <div v-html="item.tip">
+            </div>              
 
           </mt-tab-container-item>
         </mt-tab-container>
@@ -110,6 +107,7 @@ export default {
       this.getActivityInfo(id, function(d){
         if(d.flag){   
           const rData = d.data
+          console.log(rData,'dddddddddddddd')
           that.item = {
             id: rData.id,
             title: rData.title,
@@ -117,11 +115,11 @@ export default {
             type: rData.type_id,
             price: rData.price,
             for: rData.obj_info,
-            introduce: rData.more.a_info,
+            introduce: rData.wxdesc,
             provider: rData.server_info.name,
             address: rData.address,
             tip: rData.more.a_tips,
-            comments: ''
+            comments: rData.more.a_buy_text,
           }
         }
       })
@@ -289,6 +287,8 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-height: 1.4rem;
+/*  height: 4rem;
+  overflow: scroll;*/
 }
 .detail-content{
   padding:0px 1rem 1rem;
@@ -304,5 +304,13 @@ export default {
 .cell-8e .mint-cell-wrapper{
   font-size: .8rem;
 }
-
+.address-title {
+  width: 100%;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-height: 1.4rem;
+}
 </style>
