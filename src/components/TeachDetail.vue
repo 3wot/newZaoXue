@@ -39,43 +39,44 @@
             <span>适合群体：</span>
             <span>{{item.for?item.for:""}}</span>
           </h4>
-          <div class="detail-introduce font-8e" v-html="item.introduce">
+          <!-- <div class="detail-introduce font-8e" v-html="item.introduce"> -->
           <!-- {{item.introduce}} -->
-          </div>
+          <!-- </div> -->
 
           <div class="m-t-1e"></div>
 
         </div>
 
         <div class="cell-8e">
-          <mt-cell :title="item.provider">
+          <mt-cell :title="item.provider" :to="item.providerLink" is-link>
             <div slot="title" class="address-title">{{'服务商：'+ (item.provider?item.provider:'')}}</div>
           </mt-cell>
         
-          <!-- <mt-cell title="地址：北京市" to="/MapDetail/北京市海淀区清华大学" is-link value="详情"> -->
-          <mt-cell :to="{ name: 'mapdetail', params: { address: item.address }}" is-link value="详情">
+          <mt-cell :to="{ name: 'mapdetail', params: { address: item.address }}" is-link value="">
             <div slot="title" class="address-title">{{'地址：'+item.address}}</div>
           </mt-cell>
 
         </div>
 
         <mt-navbar v-model="selected">
-          <mt-tab-item id="1">评论</mt-tab-item>
-          <mt-tab-item id="2">温馨提示</mt-tab-item>
+          <mt-tab-item id="1">活动介绍</mt-tab-item>
+          <mt-tab-item id="2">购买须知</mt-tab-item>
+          <mt-tab-item id="3">温馨提示</mt-tab-item>
         </mt-navbar>
 
         
         <mt-tab-container v-model="selected">
-          <mt-tab-container-item id="1" style="padding:1rem;">
-            <div v-html="item.comments">
+          <mt-tab-container-item id="1">
+            <div class="container-item-inner" v-html="item.introduce">
             </div>            
-
           </mt-tab-container-item>
-          <mt-tab-container-item id="2" style="padding:1rem;">
-
-            <div v-html="item.tip">
+          <mt-tab-container-item id="2">
+            <div class="container-item-inner" v-html="item.comments">
+            </div>            
+          </mt-tab-container-item>
+          <mt-tab-container-item id="3">
+            <div class="container-item-inner" v-html="item.tip">
             </div>              
-
           </mt-tab-container-item>
         </mt-tab-container>
         
@@ -115,8 +116,9 @@ export default {
             type: rData.type_id,
             price: rData.price,
             for: rData.obj_info,
-            introduce: rData.wxdesc,
+            introduce: rData.more.a_info,
             provider: rData.server_info.name,
+            providerLink: "http://" + rData.server_info.url,
             address: rData.address,
             tip: rData.more.a_tips,
             comments: rData.more.a_buy_text,
@@ -291,7 +293,7 @@ export default {
   overflow: scroll;*/
 }
 .detail-content{
-  padding:0px 1rem 1rem;
+  padding:0px 1rem;
 }
 
 .line-b{
@@ -312,5 +314,8 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   line-height: 1.4rem;
+}
+.container-item-inner {
+  margin: 1rem;
 }
 </style>
