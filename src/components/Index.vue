@@ -64,8 +64,10 @@ export default {
         $.get(getUserInfo,function(data,status){
             that.$router.push({path:'/index/My'});
             if(data.flag){//如果登录成功
+            	console.log('登录成功')
             	that.userInfo.set(data.data);
             }else{//未登录	
+            	console.log('没有登录')
                 that.$router.push({path: '/Login',});
             }
         })

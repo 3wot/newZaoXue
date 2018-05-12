@@ -56,7 +56,9 @@ export default {
     }
   },
   mounted() {
-
+    this.getCodeImg(function(d){
+      console.log(d,'aaaaaaaaa')
+    })
 
   },
   methods:{
@@ -75,8 +77,6 @@ export default {
         callback(data);
       })
     },
-
-
 
     //点击登录
     loginClick() {
@@ -117,7 +117,17 @@ export default {
         }
       })
       
+    },
+
+    //获取图片
+    getCodeImg(callback) {
+      const getCodeImg = URLS.getURL('getCodeImg');
+      $.get(getCodeImg,function(data){
+        callback(data);
+      })
     }
+
+
   },
 
   watch:{

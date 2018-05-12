@@ -314,6 +314,7 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   line-height: 1.4rem;
+  padding-left: 0.5rem;
 }
 .container-item-inner {
   margin: 1rem;
