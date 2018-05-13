@@ -6,21 +6,22 @@
       
 
       <div style="">
+            
+            <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
+
+            <mt-field label="图片验证" placeholder="请输入图片码" v-model="captcha">
+                <img ref="imgCode" height="27px" width="90px" alt="图片验证" @click="getCodeImg">
+            </mt-field>
+            
             <mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="phone"></mt-field>
 
-            <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
-            
-<!--             <mt-field label="图片验证" placeholder="请输入图片码" v-model="captcha">
-                <img src="../../static/login001.png" height="27px" width="90px">
-            </mt-field>
-
             <mt-field label="验证码" placeholder="请输入验证码" type="password" v-model="password">
-                <mt-button size="small" :disabled="disabledTemp" @click.native="handleClick" type="primary">发送验证码</mt-button>
-            </mt-field> -->  
+                <mt-button size="small" @click.native="handleClick" type="primary">发送验证码</mt-button>
+            </mt-field>  
 
       </div>
       
-      <mt-button @click.native="loginClick" style="margin-top:1rem;" size="large" type="primary">登录</mt-button>
+      <mt-button @click.native="loginClick" :disabled="!hasSend" style="margin-top:1rem;" size="large" type="primary">注册</mt-button>
       
 
     </div>
@@ -46,28 +47,55 @@ export default {
   name: 'Login',
   data () {
     return {
-      token:'',
-      username:'',
-      phone:'',
-      password:'',
-      captcha:'',
-      disabledTemp:true,//控制是否可以点击发送验证码
-      hasSend:false//标志是否请求过验证码
+      token: '',
+      username: '',
+      phone: '',
+      password: '',
+      captcha: '',
+      hasSend: false,//标志是否请求过短信验证码
     }
   },
   mounted() {
-    this.getCodeImg(function(d){
-      console.log(d,'aaaaaaaaa')
-    })
-
+    //自动获取一次图片码
+    this.getCodeImg()
   },
   methods:{
     //点击发送验证码
     handleClick() {
+      const that = this
       if(this.phone){//如果号码不为空
-
+        if(this.captcha){
+          sendCodeMsg
+          const sendCodeMsg = URLS.getURL('sendCodeMsg');
+          const params = {
+            phone: this.phone,
+            code: this.captcha
+          }          
+          $.get(sendCodeMsg, params, function(res){
+            if(res.flag){
+              that.hasSend = true
+            }else{//短信码失败
+              Toast({
+                message: res.mes,
+                position: 'bottom',
+                duration: 5000
+              });  
+            }
+          })
+        }else{
+          Toast({
+            message: '请填写图片验证码',
+            position: 'bottom',
+            duration: 3000
+          });  
+        }
+      }else{
+        Toast({
+          message: '请填写手机号码',
+          position: 'bottom',
+          duration: 3000
+        });
       }
-      this.hasSend = false;//修改为已经发送
     },
 
     //获取token
@@ -81,68 +109,81 @@ export default {
     //点击登录
     loginClick() {
       let that = this;
-      this.getToken(function(res){//先获取token
-        if(res.flag){//token成功
-          that.token = res.data.token;
-          const data = {
-            phone: that.phone,
-            name: that.username,
-            token: that.token,
-          }
-          const url = URLS.getURL('RegUser');
-          $.post(url,data,function(cres){
-            if(cres.flag){//注册成功
-
-              //获取用户信息
-              const getUserInfo = URLS.getURL('getUserInfo');
-              $.get(getUserInfo, function(ccres){
-                if(ccres.flag){
-                  that.$router.go(-1);//哪里来的，跳回去
-                }else{
-                  Toast({
-                    message: 'ccres.mes',
-                    position: 'bottom',
-                    duration: 5000
-                  });
-                }
-
-              })
-            }else{//注册失败
-              console.log('RegUser failed')
+      if(that.username && that.password){//如果用户名和短信验证码不空
+          this.getToken(function(res){//先获取token
+          if(res.flag){//token成功
+            that.token = res.data.token;
+            const data = {
+              phone: that.phone,
+              name: that.username,
+              token: that.token,
+              code_msg: that.password,
             }
-          })
+            const url = URLS.getURL('RegUser');
+            $.post(url,data,function(cres){
+              if(cres.flag){//注册成功
+                //获取用户信息
+                const getUserInfo = URLS.getURL('getUserInfo');
+                $.get(getUserInfo, function(ccres){
+                  if(ccres.flag){
+                    that.$router.go(-1);//哪里来的，跳回去
+                  }else{
+                    Toast({
+                      message: 'ccres.mes',
+                      position: 'bottom',
+                      duration: 5000
+                    });
+                  }
 
-        }else{
-          console.log("get token failed")
-        }
-      })
+                })
+              }else{//注册失败
+                Toast({
+                  message: 'cres.mes',
+                  position: 'bottom',
+                  duration: 5000
+                });
+              }
+            })
+          }else{
+            console.log("get token failed")
+          }
+        })
+      }else{
+        Toast({
+          message: '请填写用户名和短信码',
+          position: 'bottom',
+          duration: 3000
+        });
+      }
+      
       
     },
 
     //获取图片
-    getCodeImg(callback) {
+    getCodeImg() {
+      const that = this
       const getCodeImg = URLS.getURL('getCodeImg');
-      $.get(getCodeImg,function(data){
-        callback(data);
-      })
+      // $.get(getCodeImg,function(data){
+      //   callback(data);
+      // })
+      let xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", getCodeImg, true);
+      xmlhttp.responseType = "blob";
+      xmlhttp.onload = function(){
+          if (this.status == 200) {
+              var blob = this.response;
+              let img = that.$refs.imgCode
+              img.onload = function(e) {
+                  window.URL.revokeObjectURL(img.src);
+              };
+              img.src = window.URL.createObjectURL(blob);
+          }
+      }
+      xmlhttp.send();
     }
-
 
   },
 
-  watch:{
-    captcha:function(n,o){
-      if(n&&!this.hasSend){
-        let str = n.toUpperCase();
-        if(str=="V9AM"){
-          this.disabledTemp = false;
-        }else{
-          this.disabledTemp = true;
-        }
-      }
-      
-    }
-  }
 }
 </script>
 

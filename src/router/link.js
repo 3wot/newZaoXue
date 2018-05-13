@@ -6,7 +6,8 @@ const URLS = {
 	"getActivityList": "/api/activity/getActivityList.json",
 	"getActivityInfo": "/api/activity/getActivityInfo.json",
 	"getCodeImg": "/api/code/code_img.json",
-	//http://admin.dev.com//api/code/code_img.json?debug=dd
+	"sendCodeMsg": "/api/code/code_msg.json",
+	
 
 	"getURL": function(key){
 		const host = 'http://www.xbcweb.com/';

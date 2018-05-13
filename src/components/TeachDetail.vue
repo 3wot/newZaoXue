@@ -24,7 +24,7 @@
                           text-align: center;
                           margin-top: 5px;" @click="goBack" class="mintui mintui-back"></span>
                   <!-- </router-link> -->
-                  <img src="../../static/star.png" style="margin:10px;float:right;width:25px;height:25px;">
+                  <!-- <img src="../../static/star.png" style="margin:10px;float:right;width:25px;height:25px;"> -->
                 </div>
               </div>
 
@@ -50,6 +50,7 @@
         <div class="cell-8e">
           <mt-cell :title="item.provider" :to="item.providerLink" is-link>
             <div slot="title" class="address-title">{{'服务商：'+ (item.provider?item.provider:'')}}</div>
+            <!-- <div>联系客服</div> -->
           </mt-cell>
         
           <mt-cell :to="{ name: 'mapdetail', params: { address: item.address }}" is-link value="">
