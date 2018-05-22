@@ -5,29 +5,22 @@
       <!-- <mt-button icon="more" slot="right"></mt-button> -->
     </mt-header>
 
-  <div class="content-in">
-      <div class="panel">
-          <div class="panel-in">
-            <img src="../../static/bg.png">
-            
-            <img class="img-f-70 mate-img" src="../../static/p001.png">
-            
-          </div>
-      </div>
+    <div class="content-in">
+        <div class="panel">
+            <div class="panel-in">
+              <img src="../../static/bg.png">
+              
+              <img class="img-f-70 mate-img" src="../../static/p001.png">
+              
+            </div>
+        </div>
 
 
-      <MatePic v-for="(item,index) in pics" :pic="item" @zan="fnZan(index)" :key="item.index">
-        
-      </MatePic>
+        <MatePic v-for="(item,index) in pics" :pic="item" @zan="fnZan(index)" :key="item.index">
+          
+        </MatePic>
 
-  </div>
-
-
-
-  
-
-
-
+    </div>
 
   </div>
 </template>
@@ -36,12 +29,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MatePic from '@/components/MatePic'
+import URLS from '../router/link'
+import $ from 'jquery'
+import { Toast } from 'mint-ui'
 
 export default {
   components:{
     MatePic
   },
   name: 'Mate',
+  mounted() {
+    //自动获取一次图片码
+    this.getPics()
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -86,6 +86,20 @@ export default {
     }
   },
   methods:{
+    getPics() {
+      const getCricleList = URLS.getURL('getCricleList');
+      $.get(getCricleList, function(res){
+        if(res.flag){
+          console.log(res,'aaaaaaa')
+        }else{
+          Toast({
+            message: res.mes,
+            position: 'bottom',
+            duration: 3000
+          });
+        }
+      })
+    },
     fnZan(idx){
       let user = this.userInfo;
       let newCommentList = this.pics[idx].commentList;

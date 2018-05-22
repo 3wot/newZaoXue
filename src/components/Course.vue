@@ -112,6 +112,17 @@ export default {
     Header,Navbar, TabItem,TabContainer, TabContainerItem
   },
   name: 'Course',
+  mounted() {
+    //自动获取一次图片码
+    this.init()
+  },
+  methods:{
+    init(){
+
+      
+    }
+
+  },
   data () {
     return {
       selected:'1',

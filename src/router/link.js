@@ -7,7 +7,10 @@ const URLS = {
 	"getActivityInfo": "/api/activity/getActivityInfo.json",
 	"getCodeImg": "/api/code/code_img.json",
 	"sendCodeMsg": "/api/code/code_msg.json",
-	
+	"getCricleList": "api/cricle/getCricleList.json",
+	"getCategoryList": "api/course/getCategoryList.json",
+	"getLearnList": "api/course/getLearnList.json",
+	"getLessionList": "api/course/getLessionList.json",
 
 	"getURL": function(key){
 		const host = 'http://www.xbcweb.com/';

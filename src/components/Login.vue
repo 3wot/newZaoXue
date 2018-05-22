@@ -22,6 +22,7 @@
       </div>
       
       <mt-button @click.native="loginClick" :disabled="!hasSend" style="margin-top:1rem;" size="large" type="primary">注册</mt-button>
+      <mt-button @click.native="gobackClick" style="margin-top:1rem;" size="large" type="primary">返回</mt-button>
       
 
     </div>
@@ -129,7 +130,7 @@ export default {
                     that.$router.go(-1);//哪里来的，跳回去
                   }else{
                     Toast({
-                      message: 'ccres.mes',
+                      message: ccres.mes,
                       position: 'bottom',
                       duration: 5000
                     });
@@ -138,7 +139,7 @@ export default {
                 })
               }else{//注册失败
                 Toast({
-                  message: 'cres.mes',
+                  message: cres.mes,
                   position: 'bottom',
                   duration: 5000
                 });
@@ -155,10 +156,11 @@ export default {
           duration: 3000
         });
       }
-      
-      
     },
 
+    gobackClick() {
+      this.$router.go(-1);//哪里来的，跳回去
+    },
     //获取图片
     getCodeImg() {
       const that = this
@@ -205,6 +207,9 @@ export default {
 .login .mint-button--small{
   height: 27px;
   border-radius: 0px;
+}
+.login .mint-cell-wrapper .mint-cell-title {
+  width: 80px !important;
 }
 
 </style>
