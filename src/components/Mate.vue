@@ -46,51 +46,80 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       pics:[
-        {
-          id:'001',
-          name:'李金荣',
-          img:'./static/p001.png',
-          imglist:['./static/mate1-1.png','./static/mate1-2.png','./static/mate1-3.png','./static/mate1-4.png','./static/mate1-5.png','./static/mate1-6.png','./static/mate1-7.png','./static/mate1-8.png','./static/mate1-9.png'],
-          content:'好风景！好风景！好风景！好心情！好心情！好心情！重要事情来三遍...',
-          time:"2018-02-01 12:02:20",
-          commentList:{
-            '张静来':true,
-            '高飞':true,
-          }
-        },
-        {
-          id:'002',
-          name:'琪琪',
-          img:'./static/p002.png',
-          imglist:['./static/mate2-1.png'],
-          content:'愿生命如烟花一般，刹那芳华，风采绽放！',
-          time:"2018-02-01 12:06:20",
-          commentList:{
-            '阿达':true,
-            '鱼王':true,
-          }
-        },
-        {
-          id:'003',
-          name:'happy',
-          img:'./static/p003.png',
-          imglist:['./static/mate3-1.png','./static/mate3-2.png','./static/mate3-3.png','./static/mate3-4.png'],
-          content:'请你一起来happy',
-          time:"2018-02-01 12:08:20",
-          commentList:{
-            '小姐姐':true,
-            '大飞':true,
-          }
-        }
+        // {
+        //   id:'001',
+        //   name:'李金荣',
+        //   img:'./static/p001.png',
+        //   imglist:['./static/mate1-1.png','./static/mate1-2.png','./static/mate1-3.png','./static/mate1-4.png','./static/mate1-5.png','./static/mate1-6.png','./static/mate1-7.png','./static/mate1-8.png','./static/mate1-9.png'],
+        //   content:'好风景！好风景！好风景！好心情！好心情！好心情！重要事情来三遍...',
+        //   time:"2018-02-01 12:02:20",
+        //   commentList:{
+        //     '张静来':true,
+        //     '高飞':true,
+        //   }
+        // },
+        // {
+        //   id:'002',
+        //   name:'琪琪',
+        //   img:'./static/p002.png',
+        //   imglist:['./static/mate2-1.png'],
+        //   content:'愿生命如烟花一般，刹那芳华，风采绽放！',
+        //   time:"2018-02-01 12:06:20",
+        //   commentList:{
+        //     '阿达':true,
+        //     '鱼王':true,
+        //   }
+        // },
+        // {
+        //   id:'003',
+        //   name:'happy',
+        //   img:'./static/p003.png',
+        //   imglist:['./static/mate3-1.png','./static/mate3-2.png','./static/mate3-3.png','./static/mate3-4.png'],
+        //   content:'请你一起来happy',
+        //   time:"2018-02-01 12:08:20",
+        //   commentList:{
+        //     '小姐姐':true,
+        //     '大飞':true,
+        //   }
+        // }
       ]
     }
   },
   methods:{
     getPics() {
+      const that = this
       const getCricleList = URLS.getURL('getCricleList');
       $.get(getCricleList, function(res){
         if(res.flag){
           console.log(res,'aaaaaaa')
+          
+          if(res.data && res.data.length){
+            $.each(res.data,function(idx,val){
+              let { ...json } = { ...val }
+              json.name = json.teacher_info.name
+              json.img = json.teacher_info.head_img
+              json.content = json.desc
+              
+              json.imglist = (function(){
+                let imgArr = []
+                $.each(json.img_group,function(cidx,cval){
+                  imgArr.push(cval.url)
+                })
+                return imgArr
+              }())
+              json.commentList = (function(){
+                let imgObj = {} 
+                $.each(json.like_list,function(cidx,cval){
+                  cval.temp = true
+                  imgObj[cval.user_id] = cval
+                })
+                return imgObj
+              }())
+              
+              that.pics.push(json)
+            })
+          }
+          
         }else{
           Toast({
             message: res.mes,

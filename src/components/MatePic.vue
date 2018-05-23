@@ -11,7 +11,7 @@
       <PicImgContent :pics="pic.imglist"></PicImgContent>
 
       <div class="pic-date">
-        <span class="font-8e font-b">{{pic.time}}</span>
+        <span class="font-8e font-b">{{pic.time?pic.time:'&nbsp;'}}</span>
         <img src="../../static/ok.png" @click="zan(pic)" class="pic-zan pull-right">
       </div>
 
