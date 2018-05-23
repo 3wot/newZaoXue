@@ -60,7 +60,7 @@
         </div>
 
         <mt-navbar v-model="selected">
-          <mt-tab-item id="1">评论</mt-tab-item>
+          <mt-tab-item id="1">购买须知</mt-tab-item>
           <mt-tab-item id="2">温馨提示</mt-tab-item>
         </mt-navbar>
 
