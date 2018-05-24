@@ -10,8 +10,7 @@
     <div class="content-in">
         
         <mt-navbar v-model="selected">
-          <mt-tab-item id="1">产品策划</mt-tab-item>
-          <mt-tab-item id="2">技术MOOC</mt-tab-item>
+          <mt-tab-item v-for="item in titleList" :key="item.index" :id="item.id">{{item.name}}</mt-tab-item>
         </mt-navbar>
 
         
@@ -104,7 +103,9 @@
 import { Header } from 'mint-ui'
 import { Navbar, TabItem } from 'mint-ui'
 import { TabContainer, TabContainerItem } from 'mint-ui'
-
+import { Toast } from 'mint-ui'
+import URLS from '../router/link'
+import $ from 'jquery'
 
 
 export default {
@@ -118,14 +119,29 @@ export default {
   },
   methods:{
     init(){
-
-      
-    }
-
+      const that = this
+      const getCategoryList = URLS.getURL('getCategoryList');
+      $.get(getCategoryList,function(res){
+        if(res.flag){
+          if(res.data && res.data.length){
+            $.each(res.data,function(idx,val){
+              that.titleList.push(val)
+            })
+          }
+        }else{
+          Toast({
+            message: res.mes,
+            position: 'bottom',
+            duration: 3000
+          });
+        }
+      })
+    },
   },
   data () {
     return {
       selected:'1',
+      titleList:[],
       courseList:[
         {
           id:'course001',

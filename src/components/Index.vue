@@ -66,6 +66,7 @@ export default {
             if(data.flag){//如果登录成功
             	console.log('登录成功')
             	that.userInfo.set(data.data);
+            	console.log(that.userInfo,'index!!!!!点击我的')
             }else{//未登录	
             	console.log('没有登录')
                 that.$router.push({path: '/Login',});

@@ -20,24 +20,14 @@
 
   <div class="content-in">
 
-  	<div class="panel">
+  	<div class="panel" v-if="TopActivity.length">
   		<div class="panel-in">
   			<mt-swipe :auto="0">
-  		  <mt-swipe-item>
-  		  	<router-link to="/TeachDetail/001">
-  		  		<img src="../../static/teach004.png">
-  		  	</router-link>
-  		  </mt-swipe-item>
-  		  <mt-swipe-item>
-          <router-link to="/TeachDetail/002">
-  		  	<img src="../../static/teach005.png">
-        </router-link>
-  		  </mt-swipe-item>
-  		  <mt-swipe-item>
-          <router-link to="/TeachDetail/003">
-  		  	<img src="../../static/teach006.png">
-        </router-link>
-  		  </mt-swipe-item>
+    		  <mt-swipe-item v-for="item in TopActivity" :key="item.index">
+            <router-link :to="{ name: 'TeachDetail', params: { id: item.id }}">
+    		  		<img :src="item.logo_pic">
+    		  	</router-link>
+    		  </mt-swipe-item>
   		</mt-swipe>
   		</div>
   	</div>
@@ -116,6 +106,7 @@ import { Tabbar, TabItem } from 'mint-ui'
 import { Swipe, SwipeItem } from 'mint-ui'
 import { Cell } from 'mint-ui'
 import { Search } from 'mint-ui'
+import { Toast } from 'mint-ui'
 import URLS from '../router/link'
 import $ from 'jquery'
 
@@ -132,6 +123,7 @@ export default {
     return {
       searchText:"",
       teachArr: [],
+      TopActivity: [],
     }
   },
   mounted() {
@@ -140,7 +132,26 @@ export default {
       if(d.flag){
         that.teachArr = d.data
       }else{
-        console.log('获取活动列表失败')
+        Toast({
+          message: d.mes,
+          position: 'bottom',
+          duration: 3000
+        });
+      }        
+    })
+    this.getTopActivityList(function(d){
+      if(d.flag){
+        if(d.data && d.data.length){
+          $.each(d.data,function(idx,val){
+            that.TopActivity.push(val)
+          })
+        }
+      }else{
+        Toast({
+          message: d.mes,
+          position: 'bottom',
+          duration: 3000
+        });
       }        
     })
   },
@@ -151,6 +162,12 @@ export default {
     getActivityType(callback) {
       const getActivityType = URLS.getURL('getActivityType');
       $.get(getActivityType,function(data){
+        callback(data);
+      })
+    },
+    getTopActivityList(callback) {
+      const getTopActivityList = URLS.getURL('getTopActivityList');
+      $.get(getTopActivityList,function(data){
         callback(data);
       })
     }

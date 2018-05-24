@@ -109,7 +109,6 @@ export default {
       this.getActivityInfo(id, function(d){
         if(d.flag){   
           const rData = d.data
-          console.log(rData,'dddddddddddddd')
           that.item = {
             id: rData.id,
             title: rData.title,
