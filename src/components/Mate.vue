@@ -91,7 +91,6 @@ export default {
       const getCricleList = URLS.getURL('getCricleList');
       $.get(getCricleList, function(res){
         if(res.flag){
-          console.log(res,'aaaaaaa')
           
           if(res.data && res.data.length){
             $.each(res.data,function(idx,val){
@@ -107,14 +106,13 @@ export default {
                 })
                 return imgArr
               }())
-              json.commentList = (function(){
-                let imgObj = {} 
-                $.each(json.like_list,function(cidx,cval){
-                  cval.temp = true
-                  imgObj[cval.user_id] = cval
-                })
-                return imgObj
-              }())
+              json.commentList = []
+              console.log(json.commentList,'ccc')
+              $.each(json.like_list,function(cidx,cval){
+                cval.temp = true
+                json.commentList.push(cval)
+              })
+              console.log(json.commentList,'ddddd')
               
               that.pics.push(json)
             })
@@ -130,12 +128,47 @@ export default {
       })
     },
     fnZan(idx){
-      let user = this.userInfo;
-      let newCommentList = this.pics[idx].commentList;
-      newCommentList[user.name] = !newCommentList[user.name];
-      this.pics[idx].commentList = newCommentList;
-      let {...item} = this.pics[idx];
-      this.pics.splice(idx,1,item);
+      const that = this
+
+      const getUserInfo = URLS.getURL('getUserInfo')
+      $.get(getUserInfo,function(data,status){
+        if(data.flag){//如果登录成功
+          that.userInfo.set(data.data);
+
+          // 根据当前用户判断
+          let user = that.userInfo;
+          let newCommentList = that.pics[idx].commentList;
+          const localUser = {
+            "user_id": user.uid,
+            "username": user.name,
+            "temp": true
+          }
+          
+          let exist = false;
+          $.each(newCommentList,function(i,v){
+            if(v.user_id == localUser.user_id){
+              exist = true
+              v.temp = !v.temp
+              newCommentList[i] = v
+            }
+          })
+
+          if(!exist){// 如果不存在
+            newCommentList.push(localUser)
+          }
+
+          that.pics[idx].commentList = newCommentList;
+          let {...item} = that.pics[idx];
+          that.pics.splice(idx,1,item);
+
+
+
+
+        }else{//未登录 
+          that.$router.push({path: '/Login',});
+        }
+      })
+
     }
   }
 

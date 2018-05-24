@@ -165,9 +165,6 @@ export default {
     getCodeImg() {
       const that = this
       const getCodeImg = URLS.getURL('getCodeImg');
-      // $.get(getCodeImg,function(data){
-      //   callback(data);
-      // })
       let xmlhttp = new XMLHttpRequest();
       xmlhttp.open("GET", getCodeImg, true);
       xmlhttp.responseType = "blob";
@@ -179,12 +176,15 @@ export default {
                   window.URL.revokeObjectURL(img.src);
               };
               img.src = window.URL.createObjectURL(blob);
+
+              that.captcha = ''
           }
       }
       xmlhttp.send();
     }
 
   },
+  
 
 }
 </script>
