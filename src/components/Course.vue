@@ -11,12 +11,46 @@
         
         <mt-navbar v-model="selected">
           <mt-tab-item v-for="item in titleList" :key="item.index" :id="item.id">{{item.name}}</mt-tab-item>
+          <!-- <mt-tab-item id="2">AAAA</mt-tab-item> -->
         </mt-navbar>
 
         
         <mt-tab-container v-model="selected" style="border-top:1px solid #dddddd;margin-top:3px;">
           
-          <mt-tab-container-item id="1">
+          <mt-tab-container-item v-for="bitem in titleList" :key="bitem.index" :id="bitem.id">
+            <div class="panel" v-for="item in courseList" v-if='item.category_id==bitem.id' :key="item.index">
+              <router-link :to="{ name: 'coursedetail', params: { id: item.id,title: item.title }}">
+                    <div class="panel-in">
+                        <div class="panel-left">
+                          <div class="left-img">
+                            <img :src="item.img"/>
+                          </div>
+                        </div>
+
+                        <div class="panel-right">
+                           <p class="right-title">
+                             {{item.introduce}}
+                           </p>
+                           <p style="margin:0px;">
+                             <span class="right-span" v-if="item.isback">回放</span>
+                           </p>
+
+                           <p class="price">
+                             <span class="price-span" v-if="!item.isfree">¥ {{item.price}}</span>
+                             <span class="free-span" v-if="item.isfree">免费</span>
+                           </p>
+
+                        </div>
+                    </div>
+                  </router-link>
+            </div> 
+
+
+          </mt-tab-container-item>
+
+
+
+          <!-- <mt-tab-container-item id="1">
             
             <div class="panel" v-for="item in courseList" v-if='item.type=="PM"' :key="item.index">
               <router-link :to="{ name: 'coursedetail', params: { id: item.id }}">
@@ -45,56 +79,14 @@
                   </router-link>
             </div> 
 
-          </mt-tab-container-item>
+          </mt-tab-container-item> -->
 
 
-          <mt-tab-container-item id="2">
-           
-            <div class="panel" v-for="item in courseList" v-if='item.type=="CD"' :key="item.index">
-              <router-link :to="{ name: 'coursedetail', params: { id: item.id }}">
-                <div class="panel-in">
-                    <div class="panel-left">
-                      <div class="left-img">
-                        <img :src="item.img"/>
-                      </div>
-                    </div>
-
-                    <div class="panel-right">
-                       <p class="right-title" style="display:-webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;">
-                         {{item.introduce}}
-                       </p>
-                       <p style="margin:0px;">
-                         <span class="right-span" v-if="item.isback">回放</span>
-                       </p>
-
-                       <p class="price">
-                         <span class="price-span" v-if="!item.isfree">¥ {{item.price}}</span>
-                         <span class="free-span" v-if="item.isfree">免费</span>
-                       </p>
-
-                    </div>
-                </div>
-              </router-link>
-            </div> 
-
-
-          </mt-tab-container-item>
 
 
         </mt-tab-container>
 
-
-
-
     </div>
-
-
-
-    
-
-
-
-
 
   </div>
 </template>
@@ -120,12 +112,36 @@ export default {
   methods:{
     init(){
       const that = this
+      // 获取title
       const getCategoryList = URLS.getURL('getCategoryList');
       $.get(getCategoryList,function(res){
         if(res.flag){
           if(res.data && res.data.length){
             $.each(res.data,function(idx,val){
+              if(idx==0){
+                that.selected = val.id
+              }
               that.titleList.push(val)
+            })
+          }
+        }else{
+          Toast({
+            message: res.mes,
+            position: 'bottom',
+            duration: 3000
+          });
+        }
+      })
+      // 获取课程
+      const getLearnList = URLS.getURL('getLearnList');
+      $.get(getLearnList,function(res){
+        if(res.flag){
+          if(res.data && res.data.length){
+            $.each(res.data,function(idx,val){
+              val.title = val.name
+              val.introduce = val.name
+              val.img = val.pic_url
+              that.courseList.push(val)
             })
           }
         }else{
@@ -140,7 +156,7 @@ export default {
   },
   data () {
     return {
-      selected:'1',
+      selected:'',
       titleList:[],
       courseList:[
         {
