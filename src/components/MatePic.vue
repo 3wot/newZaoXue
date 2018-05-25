@@ -6,7 +6,7 @@
 
     <div class="mate-right">
       <p class="font-1e pic-name">{{pic.name}}</p>
-      <p class="font-1e pic-content">{{pic.content}}</p>
+      <p class="font-1e pic-content">{{pic.content?pic.content:'&nbsp;'}}</p>
       
       <PicImgContent :pics="pic.imglist"></PicImgContent>
 
