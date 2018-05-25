@@ -24,7 +24,7 @@
   		<div class="panel-in">
   			<mt-swipe :auto="0">
     		  <mt-swipe-item v-for="item in TopActivity" :key="item.index">
-            <router-link :to="{ name: 'TeachDetail', params: { id: item.id }}">
+            <router-link :to="{ name: 'teachdetail', params: { id: item.id }}">
     		  		<img :src="item.logo_pic">
     		  	</router-link>
     		  </mt-swipe-item>

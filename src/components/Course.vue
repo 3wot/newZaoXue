@@ -32,7 +32,7 @@
                              {{item.introduce}}
                            </p>
                            <p style="margin:0px;">
-                             <span class="right-span" v-if="item.isback">回放</span>
+                             <span class="right-span">{{item.writer_info.name}}</span>
                            </p>
 
                            <p class="price">

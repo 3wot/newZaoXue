@@ -2,12 +2,12 @@
   <div class="pic-img-content">
       <div v-for="item in pics" v-if="pics.length>1" class="img-outer">
         <div class="img-iner">
-          <img class="" :src="item"/>
+          <img class="" :src="item+'?imageView2/1/w/148/h/148/q/75|imageslim'"/>
         </div>
       </div>
 
       <div v-if="pics.length==1">
-        <img :src="pics[0]" style="width:50%;height:50%;">
+        <img :src="pics[0]+'?imageView2/1/w/148/h/148/q/75|imageslim'" style="width:50%;height:50%;">
       </div>
 
 

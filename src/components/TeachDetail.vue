@@ -318,5 +318,9 @@ export default {
 }
 .container-item-inner {
   margin: 1rem;
+  font-size: 14px !important;
+}
+.container-item-inner>p>span{
+  font-size: 14px !important;
 }
 </style>
