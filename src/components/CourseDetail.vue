@@ -231,11 +231,8 @@ export default {
   font-size: 1rem;
   color:#555555;
   border-top: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
 }
-.mint-cell {
-  border-bottom: 1px solid #cccccc; 
-}
+
 .course-title .progress{
   float: right;
   color: lightblue;

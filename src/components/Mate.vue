@@ -91,7 +91,7 @@ export default {
       const getCricleList = URLS.getURL('getCricleList');
       $.get(getCricleList, function(res){
         if(res.flag){
-          console.log(res,'aaaaaaa')
+
           
           if(res.data && res.data.length){
             $.each(res.data,function(idx,val){
