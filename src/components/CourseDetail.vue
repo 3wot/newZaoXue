@@ -2,7 +2,7 @@
   <div class="course-detail">
     
 
-  <div class="content-in" v-for="item in courseList" v-if="$route.params.id==item.id">
+  <div class="content-in">
       
 
       <div class="panel" >
@@ -14,39 +14,42 @@
 
 
                   <div class="panel-t-title">
-                    <router-link to="/" slot="left">
+                    <!-- <router-link to="/" slot="left"> -->
                         <span style="line-height: 25px;
                             display: inline-block;
-                            background-color: rgba(255, 255, 255, 0.701961);
+                            background-color: rgba(0,0,0,0.2);
                             border-radius: 25px;
                             width: 25px;
                             height: 25px;
                             padding: 4px;
                             text-align: center;
-                            margin-top: 5px;" class="mintui mintui-back"></span>
-                    </router-link>
+                            margin-top: 5px;" class="mintui mintui-back"
+                            @click="goback"
+                            ></span>
+                    <!-- </router-link> -->
                   </div>
               </div>
 
           </div>
 
           <div class="panel-in" v-if="showVideo">
-            <video id="myVideo" :src="videoSrc" autoplay> 
+            <video id="myVideo" :src="videoSrc" autoplay controls="controls"> 
               
             </video>
 
             <div class="panel-t-title">
-              <router-link to="/" slot="left">
+              <!-- <router-link to="/" slot="left"> -->
                   <span style="line-height: 25px;
                       display: inline-block;
-                      background-color: rgba(255, 255, 255, 0.701961);
+                      background-color: rgba(0,0,0,0.2);
                       border-radius: 25px;
                       width: 25px;
                       height: 25px;
                       padding: 4px;
                       text-align: center;
-                      margin-top: 5px;" class="mintui mintui-back"></span>
-              </router-link>
+                      margin-top: 5px;" class="mintui mintui-back"
+                      @click="goback"></span>
+              <!-- </router-link> -->
             </div>
 
           </div>
@@ -54,13 +57,13 @@
 
       <h3 class="course-title">
         <span>{{item.title}}</span>
-        <span class="progress">{{item.progress}}%</span>
+        <!-- <span class="progress">{{item.progress}}%</span> -->
       </h3>
-      <mt-progress :value="item.progress"></mt-progress>
+      <!-- <mt-progress :value="item.progress"></mt-progress> -->
 
-      <div @click="clickCell(cc)" v-for="cc in item.childlist" :key="cc.index">
+      <div @click="clickCell(cc)" v-for="cc in childlist" :key="cc.index">
         <mt-cell :title="cc.title" is-link>
-          <span style="color: green">{{cc.progress}}%</span>
+          <!-- <span style="color: green">{{cc.progress}}%</span> -->
         </mt-cell>  
       </div>
       
@@ -73,9 +76,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Router from 'vue-router'
 import { Cell } from 'mint-ui'
 import { Progress } from 'mint-ui'
+import { Toast } from 'mint-ui'
+import URLS from '../router/link'
 import $ from 'jquery'
 
 
@@ -88,101 +94,70 @@ export default {
     return {
       showVideo:false,
       videoSrc:'',
-      courseList:[
-        {
-          id:'course001',
-          title: "摄影对产品的影响",
-          img:'./static/course001.png',
-          type:"PM",
-          price:180,
-          isfree:true,
-          isback:false,
-          introduce:'互联网时代，一个产品经理对于一个产品的重要性不言而喻，那么一个懂得摄影的产品经理对于产品又有什么样的影响呢？',
-          progress:70,
-          childlist:[
-            {
-              title:'产品的重要性',
-              progress:100,
-              link:'./static/course.mp4'
-            },
-            {
-              title:'摄影那些事',
-              progress:100,
-              link:'./static/movie.ogg'
-            },
-            {
-              title:'产品&摄影',
-              progress:35,
-              link:'./static/course.mp4'
-            }
-          ]
-        },
-        {
-          id:'course002',
-          title: "良好沟通的重要性",
-          img:'./static/course002.png',
-          type:"PM",
-          price:4600,
-          isback:true,
-          isfree:false,
-          introduce:'如何友好的沟通，如何沟通获取有用的信息，这是一个人人都关心的问题！',
-          progress:70,
-          childlist:[
-            {
-              title:'好好说话',
-              progress:100,
-              link:'./static/course.mp4'
-            },
-            {
-              title:'获取有用信息',
-              progress:50,
-              link:'./static/course.mp4'
-            },
-            {
-              title:'如何沟通',
-              progress:35,
-              link:'./static/course.mp4'
-            }
-          ]
-
-        },
-        {
-          id:'course003',
-          title: "JAVA的那些事",
-          img:'./static/course003.png',
-          type:"CD",
-          price:8000,
-          isback:true,
-          isfree:false,
-          introduce:'JAVA的各种生态，一个新手如何慢慢成长为大牛...',
-          progress:100,
-          childlist:[
-            {
-              title:'JAVA基础',
-              progress:100,
-              link:'./static/course.mp4'
-            },
-            {
-              title:'实战',
-              progress:100,
-              link:'./static/course.mp4'
-            },
-            {
-              title:'成熟框架',
-              progress:100,
-              link:'./static/course.mp4'
-            }
-          ]
-        }
-      ]
-      
+      item: {},
+      childlist:[],
     }
   },
+  mounted() {
+    //自动获取一次图片码
+    this.init()
+  },
   methods:{
+    goback() {
+      this.$router.go(-1)
+    },
     clickCell(cc){
       let url = cc.link;
       this.showVideo = true;
       this.videoSrc = url;
+
+    },
+    init(){
+      const that = this
+      // 获取课程
+      const getLearnList = URLS.getURL('getLearnList');
+      $.get(getLearnList,function(res){
+        if(res.flag){
+          if(res.data && res.data.length){
+            $.each(res.data,function(idx,val){
+              if(val.id = that.$route.params.id){
+                val.title = val.name
+                val.introduce = val.name
+                val.img = val.pic_url
+                that.item = val
+              }
+            })
+          }
+        }else{
+          Toast({
+            message: res.mes,
+            position: 'bottom',
+            duration: 3000
+          });
+        }
+      })
+      // 获取章节
+      const getLessionList = URLS.getURL('getLessionList');
+      const option = {
+        learn_id:that.$route.params.id
+      }
+      $.get(getLessionList, option, function(res){
+        if(res.flag){
+          if(res.data && res.data.length){
+            $.each(res.data,function(idx,val){
+              val.title = val.name
+              val.link = val.video_url
+              that.childlist.push(val)
+            })
+          }
+        }else{
+          Toast({
+            message: res.mes,
+            position: 'bottom',
+            duration: 3000
+          });
+        }
+      })
     }
   }
 
@@ -251,10 +226,13 @@ export default {
   padding: 0px 1rem;
 }
 .course-title{
-  padding: 0px 1rem;
+  padding: 1rem 1rem;
+  margin: 0px;
   font-size: 1rem;
   color:#555555;
+  border-top: 1px solid #cccccc;
 }
+
 .course-title .progress{
   float: right;
   color: lightblue;
