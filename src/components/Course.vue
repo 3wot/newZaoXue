@@ -23,7 +23,7 @@
                     <div class="panel-in">
                         <div class="panel-left">
                           <div class="left-img">
-                            <img :src="item.img"/>
+                            <img :src="item.img+'?imageView2/1/w/640/h/360'"/>
                           </div>
                         </div>
 
