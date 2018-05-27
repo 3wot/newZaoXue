@@ -15,10 +15,8 @@
             placeholder="喜欢的主题活动"
             >
         </mt-search>  
-
       </div>
       
-
     </div>
 
 	  
