@@ -25,7 +25,7 @@
   			<mt-swipe :auto="0">
     		  <mt-swipe-item v-for="item in TopActivity" :key="item.index">
             <router-link :to="{ name: 'teachdetail', params: { id: item.id }}">
-    		  		<img :src="item.logo_pic">
+    		  		<img :src="item.logo_pic+'?imageView2/1/w/640/h/360/q/75|imageslim'">
     		  	</router-link>
     		  </mt-swipe-item>
   		</mt-swipe>

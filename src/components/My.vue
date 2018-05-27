@@ -5,7 +5,7 @@
         <div class="panel-in">
           <img src="../../static/bg.png">
           <div class="font-middle">
-            <img class="img-r-70" src="../../static/p001.png">
+            <img class="img-r-70" :src="header_url">
             <!-- <h2 class="font-white">登录</h2> -->
           </div>
         </div>
@@ -31,11 +31,23 @@
 </template>
 
 <script>
+import URLS from '../router/link'
+import $ from 'jquery'
 
 export default {
   name: 'My',
+  mounted() {
+    const that = this
+    const getUserInfo = URLS.getURL('getUserInfo')
+    $.get(getUserInfo,function(data,status){
+      if(data.flag){//如果登录成功
+          that.header_url = data.data.header_url
+        }
+    })
+  },
   data () {
     return {
+      header_url: '../../static/p001.png',
       msg: 'Welcome to Your Vue.js App',
     }
   }

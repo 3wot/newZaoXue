@@ -15,10 +15,8 @@
             placeholder="喜欢的主题活动"
             >
         </mt-search>  
-
       </div>
       
-
     </div>
 
 	  
@@ -67,6 +65,10 @@ export default {
       }
       $.get(getSearchActivityList, data, function(res){
         if(res.flag){
+          if(that.teachCourseList && that.teachCourseList.length){
+            that.teachCourseList = that.teachCourseList.splice(0,that.teachCourseList.length)
+          }
+          that.teachCourseList = []
           if(res.data && res.data.length){
             $.each(res.data,function(idx,val){
               val.img = val.logo_pic

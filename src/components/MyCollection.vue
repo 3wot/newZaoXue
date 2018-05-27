@@ -14,8 +14,7 @@
 
       <mt-cell v-for="item in collections" :key="item.index"
         :title="item.title"
-        :to="{ name: item.path, params: { id: item.id }}"
-        :label="item.introduce"
+        :to="{ name: item.path, params: { id: item.key_id }}"
         is-link
         value="">
       </mt-cell>
@@ -29,33 +28,65 @@
 
 <script>
 import { Header } from 'mint-ui'
+import URLS from '../router/link'
+import $ from 'jquery'
+import { Toast } from 'mint-ui'
 
 export default {
   components:{
     Header
   },
   name: 'MyCollection',
+  mounted() {
+    this.getMyFavourite()
+  },
+  methods: {
+    getMyFavourite() {
+      const that = this
+      const getUserInfo = URLS.getURL('getUserInfo')
+      $.get(getUserInfo,function(data){
+        if(data.flag){
+          const user_id = data.data['id']
+          const option = {
+            user_id
+          }
+          const getFavoriteList = URLS.getURL('getFavoriteList');
+          $.get(getFavoriteList, option, function(res){
+            if(res.flag){
+              if(res.data && res.data.length){
+                $.each(res.data, function(idx,val){
+                  val.type = val.key_type
+                  val.title = val.key_info.title
+                  val.path = 'teachdetail'
+                  that.collections.push(val)
+                })
+              }
+            }else{
+              Toast({
+                message: res.mes,
+                position: 'bottom',
+                duration: 3000
+              });
+            }
+          })
+        }
+
+      })
+      
+    },
+  },
   data () {
     return {
       collections:[
-        {
-          id:'001',
-          title:"城市生存大挑战",
-          time:"2018-01-08 18:00:04",
-          introduce:'5元能做什么？也许是一包零食，或许是一瓶饮料，甚至就是一包烟的钱。',
-          ctype:'activity',
-          path:'teachdetail'
-        },
-        {
-          id:'002',
-          title:"峡谷历险",
-          time:"2018-03-08 08:00:04",
-          introduce:'今天我们将让你您的孩子拿着简单行李，完成一系列的峡谷生存挑战。',
-          ctype:'activity',
-          path:'teachdetail'
-        }
-
-
+        // {
+        //   id:'001',
+        //   key_id:'',
+        //   title:"城市生存大挑战",
+        //   time:"2018-01-08 18:00:04",
+        //   introduce:'5元能做什么？也许是一包零食，或许是一瓶饮料，甚至就是一包烟的钱。',
+        //   type:'activity',
+        //   path:'teachdetail'
+        // }
       ]
       
     }
@@ -73,7 +104,7 @@ export default {
   bottom: 0px;
   overflow: auto;
   background-color: #fdfdfd;
-  padding:0px 20px;
+  padding:0px;
 }
 .my-collection .mint-cell .mint-cell-label{
   display: -webkit-box;

@@ -22,6 +22,7 @@ Vue.prototype.userInfo = {
     this.name = data.name;
     this.phone = data.phone;
     this.uid = data.dep_id;
+    this.id = data.id;
   }
 }
 
