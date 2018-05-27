@@ -10,7 +10,7 @@
             <div class="panel-in">
               <img src="../../static/bg.png">
               
-              <img class="img-f-70 mate-img" src="../../static/p001.png">
+              <img class="img-f-70 mate-img" :src="header_url">
               
             </div>
         </div>
@@ -39,12 +39,21 @@ export default {
   },
   name: 'Mate',
   mounted() {
+    const that = this
     //自动获取一次图片码
     this.getPics()
+    //加载当前用户
+    const getUserInfo = URLS.getURL('getUserInfo')
+    $.get(getUserInfo,function(data,status){
+      if(data.flag){//如果登录成功
+          that.header_url = data.data.header_url
+        }
+    })
   },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
+      header_url: '../../static/p001.png',
       pics:[
         // {
         //   id:'001',

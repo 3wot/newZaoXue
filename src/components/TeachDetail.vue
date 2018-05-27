@@ -16,7 +16,7 @@
                   <!-- <router-link to="/" slot="left"> -->
                       <span style="line-height: 25px;
                           display: inline-block;
-                          background-color: rgba(255, 255, 255, 0.701961);
+                          background-color: rgba(0,0,0,0.2);
                           border-radius: 25px;
                           width: 25px;
                           height: 25px;
@@ -24,7 +24,7 @@
                           text-align: center;
                           margin-top: 5px;" @click="goBack" class="mintui mintui-back"></span>
                   <!-- </router-link> -->
-                  <!-- <img src="../../static/star.png" style="margin:10px;float:right;width:25px;height:25px;"> -->
+                  <img :src="exist ? '../../star.png' : '../../star1.png'" style="margin:10px;float:right;width:25px;height:25px;">
                 </div>
               </div>
 
@@ -102,7 +102,7 @@ export default {
   },
   name: 'TeachDetail',
   mounted() {
-    
+    // 获取具体信息
     const that = this;
     const id = this.$route.params.id;
     if(id){
@@ -126,7 +126,10 @@ export default {
         }
       })
     }
-    
+    // 检测收藏
+    this.check()
+
+
   },
   methods:{
     getActivityInfo(id,callback) {
@@ -138,80 +141,45 @@ export default {
         callback(data);
       })
     },
+    check() {
+      const that = this
+      //加载当前用户
+      const getUserInfo = URLS.getURL('getUserInfo')
+      $.get(getUserInfo,function(data,status){
+        if(data.flag){//如果登录成功
+            const user_id = data.data['dep_id']
+            const key_id = that.$route.params.id
+            const key_type = 'activity'
+            const option = { user_id, key_id, key_type }
+
+            const check_exist = URLS.getURL('check_exist')
+            $.get(check_exist, option,function(res){
+              if(res.flag){
+                if(res.data.is_exist === 2){ // 没收藏 
+                  that.exist = false
+                }else if (res.data.is_exist === 1){ // 收藏
+                  that.exist = true
+                }
+              }
+            })
+            
+
+
+
+          }else{
+            that.$router.push({path: '/Login',});
+          }
+      })
+
+    },
     goBack() {
       this.$router.go(-1)
     }
   },
   data () {
     return {
-      // teachCourseList:[
-      // 	{
-      //     id:'001',
-      // 		title: "未来领袖成长营--城市生存大挑战",
-      // 		img:'./static/teach004.png',
-      // 		type:"practice",
-      // 		price:180,
-      //     for:'18以内',
-      //     introduce:'5元能做什么？也许是一包零食，或许是一瓶饮料，甚至就是一包烟的钱，今天我们将让你您的孩子拿着5元钱，完成一系列的城市生存挑战。',
-      //     provider:"服务商：早学网旗舰店",
-      //     address:"地址：北京市中国国家博物馆",
-      //     tip:"\n1.5元钱生存资金\n2.一个便携式背包\n3.一个收纳袋子\n4.一瓶矿泉水",
-      //     comments:[]
-      // 	},
-      // 	{
-      //     id:'002',
-      // 		title: "中国特种工艺制作非物质文化遗产--青铜器",
-      // 		img:'./static/teach005.png',
-      // 		type:"culture",
-      // 		price:80,
-      //     for:'18以内',
-      //     introduce:'参观青铜器的制作过程，学习了解古代劳动人命的智慧。通过这里对我国悠久的历史，深厚的文化底蕴形成认知。',
-      //     provider:"服务商：早学网旗舰店",
-      //     address:"地址：山西省太原市省博物馆",
-      //     tip:"\n1.一个便携式背包\n2.一瓶矿泉水",
-      //     comments:[]
-      // 	},
-      // 	{
-      //     id:'003',
-      // 		title: "海洋馆一日参观",
-      // 		img:'./static/teach006.png',
-      // 		type:"science",
-      // 		price:280,
-      //     for:'18以内',
-      //     introduce:'北京市海洋馆是以展示七大海洋生物为主。集科普，观赏，旅游，娱乐于一体的爱国主义教育基地。',
-      //     provider:"服务商：早学网旗舰店",
-      //     address:"地址：北京市动物园",
-      //     tip:"\n1.一个便携式背包\n2.一个收纳袋子\n3.一瓶矿泉水",
-      //     comments:[]
-      // 	},
-      // 	{
-      //     id:'004',
-      // 		title: "舌尖上的美味--蔬菜的故事",
-      // 		img:'./static/teach008.png',
-      // 		type:"science",
-      // 		price:598,
-      //     for:'18以内',
-      //     introduce:'舌尖上的中国，介绍了我国大江南北各地的美食，你知道吗，美食背后是一种种颜色种类各异的蔬菜，它们又有怎样的故事呢？',
-      //     provider:"服务商：早学网旗舰店",
-      //     address:"地址：北京市植物园",
-      //     tip:"\n1.一个便携式背包\n2.一个收纳袋子\n3.一瓶矿泉水",
-      //     comments:[]
-      // 	},
-      // 	{
-      //     id:'005',
-      // 		title: "儿童舞蹈夏令营",
-      // 		img:'./static/teach007.png',
-      // 		type:"practice",
-      // 		price:480,
-      //     for:'18以内',
-      //     introduce:'炎炎夏日，您还在为孩子报各种补习班吗？累了大人，苦了孩子，何不让孩子试试舞蹈呢！',
-      //     provider:"服务商：早学网旗舰店",
-      //     address:"地址：北京市海淀区北京邮电大学",
-      //     tip:"\n1.一个便携式背包\n2.一个收纳袋子",
-      //     comments:[]
-      // 	}
-      // ],
       item:{},
+      exist: false,// 标志是否收藏
       selected:'1',
     }
   }
