@@ -21,7 +21,7 @@ const URLS = {
 
 	"check_exist": "api/favorite/check_exist.json",
 	"getFavoriteList": "api/favorite/getFavoriteList.json",
-	"add": "api/favorite/add.json",
+	"add": "/api/favorite/add.json",
 	"del": "api/favorite/del.json",
 	
 

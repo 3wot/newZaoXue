@@ -147,7 +147,7 @@ export default {
           let user = that.userInfo;
           let newCommentList = that.pics[idx].commentList;
           const localUser = {
-            "user_id": user.uid,
+            "user_id": user.id,
             "username": user.name,
             "temp": true
           }
@@ -168,9 +168,6 @@ export default {
           that.pics[idx].commentList = newCommentList;
           let {...item} = that.pics[idx];
           that.pics.splice(idx,1,item);
-
-
-
 
         }else{//未登录 
           that.$router.push({path: '/Login',});

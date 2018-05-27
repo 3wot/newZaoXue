@@ -24,7 +24,7 @@
                           text-align: center;
                           margin-top: 5px;" @click="goBack" class="mintui mintui-back"></span>
                   <!-- </router-link> -->
-                  <img :src="exist ? '../../star.png' : '../../star1.png'" style="margin:10px;float:right;width:25px;height:25px;">
+                  <img @click="addOrDel" :src="exist ? '../../static/star.png' : '../../static/star1.png'" style="margin:10px;float:right;width:25px;height:25px;">
                 </div>
               </div>
 
@@ -95,6 +95,7 @@ import { Navbar, TabItem } from 'mint-ui'
 import { TabContainer, TabContainerItem } from 'mint-ui'
 import URLS from '../router/link'
 import $ from 'jquery'
+import { Toast } from 'mint-ui'
 
 export default {
   comments:{
@@ -147,7 +148,8 @@ export default {
       const getUserInfo = URLS.getURL('getUserInfo')
       $.get(getUserInfo,function(data,status){
         if(data.flag){//如果登录成功
-            const user_id = data.data['dep_id']
+            const user_id = data.data['id']
+            that.user_id = user_id
             const key_id = that.$route.params.id
             const key_type = 'activity'
             const option = { user_id, key_id, key_type }
@@ -162,15 +164,33 @@ export default {
                 }
               }
             })
-            
-
-
-
           }else{
             that.$router.push({path: '/Login',});
           }
       })
 
+    },
+
+    addOrDel() {
+      const that = this
+      const add = URLS.getURL('add')
+      const del = URLS.getURL('del')
+      const url = that.exist?del:add
+      const option = {
+        user_id: that.user_id,
+        key_id: that.$route.params.id,
+        key_type: "activity"
+      }
+      $.post(url, option,function(res){
+        if(res.flag){
+          that.exist = !that.exist
+        }
+        Toast({
+          message: res.mes,
+          position: 'bottom',
+          duration: 3000
+        });
+      })
     },
     goBack() {
       this.$router.go(-1)
@@ -181,6 +201,7 @@ export default {
       item:{},
       exist: false,// 标志是否收藏
       selected:'1',
+      user_id: ''
     }
   }
 }
