@@ -16,7 +16,7 @@
             <mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="phone"></mt-field>
 
             <mt-field label="验证码" placeholder="请输入验证码" type="password" v-model="password">
-                <mt-button size="small" @click.native="handleClick" type="primary">发送验证码</mt-button>
+                <mt-button size="small" @click.native="handleClick" :disabled="passwordTemp" type="primary">{{passwordText}}</mt-button>
             </mt-field>  
 
       </div>
@@ -54,6 +54,8 @@ export default {
       password: '',
       captcha: '',
       hasSend: false,//标志是否请求过短信验证码
+      passwordText: '发送验证码',
+      passwordTemp: false
     }
   },
   mounted() {
@@ -66,7 +68,6 @@ export default {
       const that = this
       if(this.phone){//如果号码不为空
         if(this.captcha){
-          sendCodeMsg
           const sendCodeMsg = URLS.getURL('sendCodeMsg');
           const params = {
             phone: this.phone,
@@ -75,12 +76,15 @@ export default {
           $.get(sendCodeMsg, params, function(res){
             if(res.flag){
               that.hasSend = true
+              that.countDown()// 发送成功，倒计时
             }else{//短信码失败
               Toast({
                 message: res.mes,
                 position: 'bottom',
                 duration: 5000
-              });  
+              });
+              // 获取失败，则刷新图片
+              that.getCodeImg()
             }
           })
         }else{
@@ -105,6 +109,22 @@ export default {
       $.get(getToken,function(data){
         callback(data);
       })
+    },
+
+    //倒计时
+    countDown () {
+      const that = this
+      that.passwordTemp = true
+      let num = 60
+      const timer = setInterval(function(){
+        that.passwordText = num + 'S'
+        num = num - 1
+        if(num === 0){
+          that.passwordTemp = false
+          that.passwordText = '发送验证码'
+          clearInterval(timer)
+        }
+      },1000)
     },
 
     //点击登录

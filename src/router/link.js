@@ -19,7 +19,10 @@ const URLS = {
 	"getLearnList": "api/course/getLearnList.json",
 	"getLessionList": "api/course/getLessionList.json",
 
-
+	"check_exist": "api/favorite/check_exist.json",
+	"getFavoriteList": "api/favorite/getFavoriteList.json",
+	"add": "/api/favorite/add.json",
+	"del": "api/favorite/del.json",
 	
 
 	"getURL": function(key){
