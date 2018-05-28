@@ -28,7 +28,7 @@ const URLS = {
 	"getURL": function(key){
 		const host = 'http://www.xbcweb.com/';
 		if(this[key]){
-			return host + this[key] + "?debug=dd";
+			return host + this[key] + "";
 		}else{
 			console.log("URLS没有当前地址");
 		}
