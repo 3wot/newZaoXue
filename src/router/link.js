@@ -23,7 +23,8 @@ const URLS = {
 	"getFavoriteList": "api/favorite/getFavoriteList.json",
 	"add": "/api/favorite/add.json",
 	"del": "api/favorite/del.json",
-	
+
+	"js_weixin": "api/weixin/js_weixin.json",
 
 	"getURL": function(key){
 		const host = 'http://www.xbcweb.com/';

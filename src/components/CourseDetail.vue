@@ -33,9 +33,11 @@
           </div>
 
           <div class="panel-in" v-if="showVideo">
-            <video id="myVideo" :src="videoSrc" autoplay controls="controls"> 
+            <!-- <video id="myVideo" :src="videoSrc" autoplay controls="controls"> 
               
-            </video>
+            </video> -->
+
+            <embed :src="videoSrc" allowFullScreen="true" quality="high" width="100%" height="100%" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
 
             <div class="panel-t-title">
               <!-- <router-link to="/" slot="left"> -->
