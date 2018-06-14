@@ -36,6 +36,7 @@
 import { Header } from 'mint-ui'
 import URLS from '../router/link'
 import $ from 'jquery'
+import WXShare from '../router/wxshare'
 
 export default {
   components:{
@@ -52,7 +53,7 @@ export default {
         }
       })
     }
-    
+    WXShare.init({})
   },
   methods:{
     getActivityList(id,callback) {

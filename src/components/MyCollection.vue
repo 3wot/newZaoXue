@@ -31,6 +31,7 @@ import { Header } from 'mint-ui'
 import URLS from '../router/link'
 import $ from 'jquery'
 import { Toast } from 'mint-ui'
+import WXShare from '../router/wxshare'
 
 export default {
   components:{
@@ -39,6 +40,8 @@ export default {
   name: 'MyCollection',
   mounted() {
     this.getMyFavourite()
+
+    WXShare.init({})
   },
   methods: {
     getMyFavourite() {
@@ -74,6 +77,8 @@ export default {
       })
       
     },
+
+
   },
   data () {
     return {

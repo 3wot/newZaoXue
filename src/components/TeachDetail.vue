@@ -96,6 +96,7 @@ import { TabContainer, TabContainerItem } from 'mint-ui'
 import URLS from '../router/link'
 import $ from 'jquery'
 import { Toast } from 'mint-ui'
+import WXShare from '../router/wxshare'
 
 export default {
   comments:{
@@ -124,6 +125,12 @@ export default {
             tip: rData.more.a_tips,
             comments: rData.more.a_buy_text,
           }
+
+          // 分享
+          WXShare.init({
+            title: rData.title,
+            imgUrl: rData.logo_pic,
+          })
         }
       })
     }

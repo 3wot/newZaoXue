@@ -57,7 +57,8 @@ export default {
   	if(this.$route.params.type){
   		this.selectId = this.$route.params.type;
   	}
-  	WXShare.set()
+  	const op = {}
+  	WXShare.init(op)
   },
   methods:{
 	clickMy(){

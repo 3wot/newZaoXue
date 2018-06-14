@@ -26,7 +26,7 @@ const WXShare = {
 					});
 
 					const option = {
-						title: ' 学秉初', // 分享标题
+						title: '学秉初', // 分享标题
 						desc: '', // 分享描述
 						link: '', // 分享链接
 						imgUrl: '', // 分享图标
@@ -49,12 +49,7 @@ const WXShare = {
 				          	});
 						}
 					}
-					let realshare = share ? share : {}
-					const opt = {
-						...option,
-						...realshare
-					}
-
+					const opt = Object.assign({},option,share)
 					wx.ready(function() {
 						// 2. 分享接口
 						// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
@@ -68,7 +63,7 @@ const WXShare = {
 					});
 
 				}else{
-					console.log(res.data,'aaaaaa')
+					console.log(res.data)
 				}
       		})
 
