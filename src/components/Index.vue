@@ -38,6 +38,7 @@ import Course from '@/components/Course'
 import My from '@/components/My'
 import $ from 'jquery'
 import URLS from '../router/link'
+import WXShare from '../router/wxshare'
 
 // Vue.component(Tabbar.name, Tabbar);
 // Vue.component(TabItem.name, TabItem);
@@ -56,6 +57,7 @@ export default {
   	if(this.$route.params.type){
   		this.selectId = this.$route.params.type;
   	}
+  	WXShare.set()
   },
   methods:{
 	clickMy(){

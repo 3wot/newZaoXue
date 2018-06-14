@@ -1,6 +1,7 @@
 import wx from 'weixin-js-sdk'
 import $ from 'jquery'
 import URLS from '../router/link'
+import { Toast } from 'mint-ui'
 
 const WXShare = {
 
@@ -33,9 +34,19 @@ const WXShare = {
 						dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 						success: function() {
 							// 用户确认分享后执行的回调函数
+							Toast({
+					            message: "分享成功",
+					            position: 'bottom',
+					            duration: 3000
+				          	});
 						},
 						cancel: function() {
 							// 用户取消分享后执行的回调函数
+							Toast({
+					            message: "分享失败",
+					            position: 'bottom',
+					            duration: 3000
+				          	});
 						}
 					}
 					let realshare = share ? share : {}
