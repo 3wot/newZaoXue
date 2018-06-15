@@ -36,7 +36,6 @@
             <video id="myVideo" :src="videoSrc" autoplay controls="controls"> 
               
             </video>
-
             <div class="panel-t-title">
               <!-- <router-link to="/" slot="left"> -->
                   <span style="line-height: 25px;
@@ -83,6 +82,7 @@ import { Progress } from 'mint-ui'
 import { Toast } from 'mint-ui'
 import URLS from '../router/link'
 import $ from 'jquery'
+import WXShare from '../router/wxshare'
 
 
 export default {
@@ -101,6 +101,8 @@ export default {
   mounted() {
     //自动获取一次图片码
     this.init()
+
+    WXShare.init({})
   },
   methods:{
     goback() {

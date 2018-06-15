@@ -49,6 +49,7 @@ import { Search } from 'mint-ui'
 import { Toast } from 'mint-ui'
 import URLS from '../router/link'
 import $ from 'jquery'
+import WXShare from '../router/wxshare'
 
 export default {
   components:{
@@ -85,6 +86,10 @@ export default {
       })
       
     },
+
+  },
+  mounted(){
+    WXShare.init({})
   },
   data () {
     return {

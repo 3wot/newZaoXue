@@ -22,6 +22,7 @@
 <script>
 import { Header } from 'mint-ui'
 import $ from 'jquery'
+import WXShare from '../router/wxshare'
 
 export default {
   components:{
@@ -34,13 +35,14 @@ export default {
     }
   },
   mounted: function () {
-	this.loadScript();
-	// console.log(this.$route.params.address);
-	setTimeout(function(){
-		this.initialize(this.$route.params.address);
+  	this.loadScript();
+  	// console.log(this.$route.params.address);
+  	setTimeout(function(){
+  		this.initialize(this.$route.params.address);
 
-	}.bind(this), 1000);
-	
+  	}.bind(this), 1000);
+    
+    WXShare.init({})
   },
   methods:{
   	
