@@ -89,7 +89,8 @@ export default {
 
   },
   mounted(){
-    WXShare.init({})
+    const uurl = location.href.split('#')[0]
+    WXShare.init({}, uurl)
   },
   data () {
     return {

@@ -5,10 +5,15 @@ import { Toast } from 'mint-ui'
 
 const WXShare = {
 
-	init:function(share){
+	init:function(share, Aurl){
 		if(wx){
 			const js_weixin = URLS.getURL('js_weixin');
-      		$.get(js_weixin,function(res){
+			let uurl = location.href.split('#')[0]
+			let realUrl = Aurl || uurl
+			const realOption = {
+				url: realUrl
+			}
+      		$.get(js_weixin, realOption, function(res){
 				if(res.flag){
 					const { appId, timestamp, nonceStr, signature } = res.data
 					wx.config({

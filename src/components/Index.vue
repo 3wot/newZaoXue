@@ -57,8 +57,8 @@ export default {
   	if(this.$route.params.type){
   		this.selectId = this.$route.params.type;
   	}
-  	const op = {}
-  	WXShare.init(op)
+  	const uurl = location.href.split('#')[0]
+    WXShare.init({}, uurl)
   },
   methods:{
 	clickMy(){
