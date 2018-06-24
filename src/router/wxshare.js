@@ -11,7 +11,6 @@ const WXShare = {
       		$.get(js_weixin,function(res){
 				if(res.flag){
 					const { appId, timestamp, nonceStr, signature } = res.data
-					wx.config({
 						debug: false,
 						appId: appId,
 						timestamp: timestamp,
@@ -71,7 +70,7 @@ const WXShare = {
 		} else {
 			console.log('引入微信分享失败')
 		}
-		
+
 	}
 }
 export default WXShare
