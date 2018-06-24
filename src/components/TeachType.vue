@@ -53,7 +53,8 @@ export default {
         }
       })
     }
-    WXShare.init({})
+    const uurl = location.href.split('#')[0]
+    WXShare.init({}, uurl)
   },
   methods:{
     getActivityList(id,callback) {

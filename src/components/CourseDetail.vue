@@ -102,7 +102,8 @@ export default {
     //自动获取一次图片码
     this.init()
 
-    WXShare.init({})
+    const uurl = location.href.split('#')[0]
+    WXShare.init({}, uurl)
   },
   methods:{
     goback() {

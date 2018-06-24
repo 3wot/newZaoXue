@@ -125,12 +125,12 @@ export default {
             tip: rData.more.a_tips,
             comments: rData.more.a_buy_text,
           }
-
+          const uurl = location.href.split('#')[0]
           // 分享
           WXShare.init({
             title: rData.title,
             imgUrl: rData.logo_pic,
-          })
+          }, uurl)
         }
       })
     }

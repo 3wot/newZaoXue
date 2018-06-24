@@ -42,7 +42,8 @@ export default {
 
   	}.bind(this), 1000);
     
-    WXShare.init({})
+    const uurl = location.href.split('#')[0]
+    WXShare.init({}, uurl)
   },
   methods:{
   	
