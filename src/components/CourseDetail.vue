@@ -1,14 +1,14 @@
 <template>
   <div class="course-detail">
-    
+
 
   <div class="content-in">
-      
+
 
       <div class="panel" >
           <div class="panel-in" v-if="!showVideo">
               <img :src="item.img+'?imageView2/1/w/640/h/360'">
-            
+
               <div class="font-bottom">
                   <!-- <h4 class="font-white font-1e panel-b-title">{{item.title}}</h4> -->
 
@@ -33,9 +33,7 @@
           </div>
 
           <div class="panel-in" v-if="showVideo">
-            <video id="myVideo" :src="videoSrc" autoplay controls="controls"> 
-              
-            </video>
+            <iframe  id="myVideo" frameborder="0" width="100%" height="200" src="videoSrc" allowfullscreen></iframe>
             <div class="panel-t-title">
               <!-- <router-link to="/" slot="left"> -->
                   <span style="line-height: 25px;
@@ -63,9 +61,9 @@
       <div @click="clickCell(cc)" v-for="cc in childlist" :key="cc.index">
         <mt-cell :title="cc.title" is-link>
           <!-- <span style="color: green">{{cc.progress}}%</span> -->
-        </mt-cell>  
+        </mt-cell>
       </div>
-      
+
 
 
 
@@ -164,7 +162,7 @@ export default {
     }
   }
 
-  
+
 }
 </script>
 
@@ -189,7 +187,7 @@ export default {
   width: 100%;
   height: 100%;
   left: 0px;
-  top: 0px; 
+  top: 0px;
 }
 .panel-in img{
   height: 100%;

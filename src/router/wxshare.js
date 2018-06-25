@@ -16,8 +16,9 @@ const WXShare = {
       		$.get(js_weixin, realOption, function(res){
 				if(res.flag){
 					const { appId, timestamp, nonceStr, signature } = res.data
-						debug: false,
-						appId: appId,
+					wx.config({
+						debug:false,
+						appId:appId,
 						timestamp: timestamp,
 						nonceStr: nonceStr,
 						signature: signature,
