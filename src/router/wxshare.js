@@ -15,7 +15,9 @@ const WXShare = {
 			}
       		$.get(js_weixin, realOption, function(res){
 				if(res.flag){
+					console.log(res.data);
 					const { appId, timestamp, nonceStr, signature } = res.data
+
 					wx.config({
 						debug:false,
 						appId:appId,
@@ -32,9 +34,9 @@ const WXShare = {
 
 					const option = {
 						title: '学秉初', // 分享标题
-						desc: '', // 分享描述
-						link: '', // 分享链接
-						imgUrl: '', // 分享图标
+						desc: '中小学生综合实践第二课堂领导品牌', // 分享描述
+						link: 'http://www.xbcweb.com', // 分享链接
+						imgUrl: 'http://static.xbcweb.com/WechatIMG507.png?imageView2/1/w/200/h/200/q/75|imageslim', // 分享图标
 						type: 'link', // 分享类型,music、video或link，不填默认为link
 						dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 						success: function() {

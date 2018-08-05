@@ -33,7 +33,7 @@
           </div>
 
           <div class="panel-in" v-if="showVideo">
-            <iframe  id="myVideo" frameborder="0" width="100%" height="200" src="videoSrc" allowfullscreen></iframe>
+            <iframe  id="myVideo" frameborder="0" width="100%" height="200" :src="videoSrc" allowfullscreen></iframe>
             <div class="panel-t-title">
               <!-- <router-link to="/" slot="left"> -->
                   <span style="line-height: 25px;

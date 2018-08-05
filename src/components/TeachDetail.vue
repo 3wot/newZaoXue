@@ -1,9 +1,9 @@
 <template>
 
   <div class="teach-detail">
-  
+
   <!-- <div v-for="item in teachCourseList" :key="item.index" v-if="$route.params.id==item.id"> -->
-    
+
     <div class="panel">
 
           <div class="panel-in">
@@ -24,11 +24,11 @@
                           text-align: center;
                           margin-top: 5px;" @click="goBack" class="mintui mintui-back"></span>
                   <!-- </router-link> -->
-                  <img @click="addOrDel" :src="exist ? '../../static/star.png' : '../../static/star1.png'" style="margin:10px;float:right;width:25px;height:25px;">
+                  <img @click="addOrDel" :src="exist ? '../../static/star1.png' : '../../static/star.png'" style="margin:10px;float:right;width:25px;height:25px;">
                 </div>
               </div>
 
-              
+
 
           </div>
 
@@ -52,7 +52,7 @@
             <div slot="title" class="address-title">{{'服务商：'+ (item.provider?item.provider:'')}}</div>
             <!-- <div>联系客服</div> -->
           </mt-cell>
-        
+
           <mt-cell :to="{ name: 'mapdetail', params: { address: item.address }}" is-link value="">
             <div slot="title" class="address-title">{{'地址：'+item.address}}</div>
           </mt-cell>
@@ -65,27 +65,27 @@
           <mt-tab-item id="3">温馨提示</mt-tab-item>
         </mt-navbar>
 
-        
+
         <mt-tab-container v-model="selected">
           <mt-tab-container-item id="1">
             <div class="container-item-inner" v-html="item.introduce">
-            </div>            
+            </div>
           </mt-tab-container-item>
           <mt-tab-container-item id="2">
             <div class="container-item-inner" v-html="item.comments">
-            </div>            
+            </div>
           </mt-tab-container-item>
           <mt-tab-container-item id="3">
             <div class="container-item-inner" v-html="item.tip">
-            </div>              
+            </div>
           </mt-tab-container-item>
         </mt-tab-container>
-        
+
 
 
 
   <!-- </div>   -->
-    
+
   </div>
 </template>
 
@@ -109,7 +109,7 @@ export default {
     const id = this.$route.params.id;
     if(id){
       this.getActivityInfo(id, function(d){
-        if(d.flag){   
+        if(d.flag){
           const rData = d.data
           that.item = {
             id: rData.id,
@@ -164,7 +164,7 @@ export default {
             const check_exist = URLS.getURL('check_exist')
             $.get(check_exist, option,function(res){
               if(res.flag){
-                if(res.data.is_exist === 2){ // 没收藏 
+                if(res.data.is_exist === 2){ // 没收藏
                   that.exist = false
                 }else if (res.data.is_exist === 1){ // 收藏
                   that.exist = true
@@ -226,7 +226,7 @@ export default {
   width: 100%;
   height: 100%;
   left: 0px;
-  top: 0px; 
+  top: 0px;
 }
 .panel img{
   width: 100%;
